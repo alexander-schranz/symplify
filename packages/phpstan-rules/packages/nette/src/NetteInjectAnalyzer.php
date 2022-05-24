@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symplify\PHPStanRules\Nette;
 
+use PHPStan\BetterReflection\Reflection\Adapter\ReflectionEnum;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -121,7 +122,7 @@ final class NetteInjectAnalyzer
     }
 
     private function isPropertyInjectedInClassMethod(
-        ReflectionClass $reflectionClass,
+        \PHPStan\BetterReflection\Reflection\Adapter\ReflectionClass|ReflectionEnum $reflectionClass,
         PropertyFetch $propertyFetch
     ): bool {
         $reflectionMethods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
