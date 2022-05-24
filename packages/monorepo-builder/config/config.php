@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types=1);
+use Symfony\Component\Console\Application;
+use Symplify\MonorepoBuilder\Console\MonorepoBuilderApplication;
+use Symplify\PackageBuilder\Reflection\PrivatesCaller;
+use Symplify\PackageBuilder\Yaml\ParametersMerger;
 
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
@@ -77,10 +81,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // for autowired commands
     $services->alias(
-        \Symfony\Component\Console\Application::class,
-        \Symplify\MonorepoBuilder\Console\MonorepoBuilderApplication::class
+        Application::class,
+        MonorepoBuilderApplication::class
     );
 
-    $services->set(\Symplify\PackageBuilder\Reflection\PrivatesCaller::class);
-    $services->set(\Symplify\PackageBuilder\Yaml\ParametersMerger::class);
+    $services->set(PrivatesCaller::class);
+    $services->set(ParametersMerger::class);
 };
